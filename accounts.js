@@ -133,21 +133,17 @@ async function deleteProfile(profileId) {
 }
 
 async function main() {
-  // Lista e processa as organizações
   const orgArray = await processOrganizations();
   console.log('Total organizations with members:', orgArray.length);
 
-  // Processa perfis associados às organizações
   const profileArray = await processProfiles(orgArray);
   console.log('Total profiles:', profileArray.length);
 
-  // Obtém detalhes das organizações e realiza validações
   for (const org of orgArray) {
     const details = await getOrganizationDetails(org.id);
     console.log(`Organization details for ${org.id}:`, details);
   }
 
-  // Lista e deleta os perfis
   const { profileArray: profilesToDelete, profilesCount } = await listProfilesAdmin();
   console.log('profileArray: ', profilesToDelete, 'profileCount: ', profilesCount);
 
