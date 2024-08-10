@@ -1,3 +1,5 @@
+# Mass Delete Contacts Oracle Commerce Cloud
+
 ## ENGLISH
 
 The purpose of this project is to help clean up the contact base and request contacts as well as delete all connections between contacts and accounts.
