@@ -19,7 +19,7 @@ PR`s são bem-vindos se quiserem atualizar alguma informação, espero ter ajuda
 
 Abraços!
 
-## Licença
+
+## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
