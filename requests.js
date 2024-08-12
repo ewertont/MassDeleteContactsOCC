@@ -43,8 +43,7 @@ async function deleteProfileRequests(contactRequestArray) {
         },
       });
       console.log('Status code is 204');
-
-      // Verifica se ainda há mais IDs para deletar
+      
       if (contactRequestArray.length > 0) {
         console.log('Continuing to delete next contactRequest...');
       } else {
