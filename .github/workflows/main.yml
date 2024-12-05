@@ -1,0 +1,2 @@
+- name: Debug Env
+run: env
