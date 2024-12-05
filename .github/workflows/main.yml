@@ -3,9 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - dev
-      - tst
-      - production
+      - master
 
 jobs:
   build_and_deploy:
@@ -14,52 +12,5 @@ jobs:
       NODE_OPTIONS: --max_old_space_size=16384
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install Yarn
-        run: npm install --global yarn
-
-      - name: Set Oracle CX Commerce Registry
-        run: npm config set @oracle-cx-commerce:registry https://oracle-cx-commerce-repository.occa.ocs.oraclecloud.com
-
-      - name: Install Dependencies
-        run: yarn install
-
-      - name: Set Environment Variables
-        run: |
-          if [ "${{ github.ref_name }}" == "dev" ]; then
-            echo "APP_KEY=${{ secrets.APP_KEY_DEV }}" >> $GITHUB_ENV
-            echo "SERVER_URL=${{ secrets.SERVER_URL_DEV }}" >> $GITHUB_ENV
-          elif [ "${{ github.ref_name }}" == "tst" ]; then
-            echo "APP_KEY=${{ secrets.APP_KEY_TST }}" >> $GITHUB_ENV
-            echo "SERVER_URL=${{ secrets.SERVER_URL_TST }}" >> $GITHUB_ENV
-          elif [ "${{ github.ref_name }}" == "production" ]; then
-            echo "APP_KEY=${{ secrets.APP_KEY_PRD }}" >> $GITHUB_ENV
-            echo "SERVER_URL=${{ secrets.SERVER_URL_PRD }}" >> $GITHUB_ENV
-          fi
-
-      - name: Configure Workspace
-        run: echo "${{ env.APP_KEY }}" | yarn occ configure -k -a ${{ env.SERVER_URL }} -n vulcan-materials -e development --userName GitHubActions
-
-      - name: Print Deployment Target
-        run: |
-          if [ "${{ github.ref_name }}" == "dev" ]; then
-            echo "Deploying to Development Environment"
-          elif [ "${{ github.ref_name }}" == "tst" ]; then
-            echo "Deploying to Test Environment"
-          elif [ "${{ github.ref_name }}" == "production" ]; then
-            echo "Deploying to Production Environment"
-          else
-            echo "Deploying to an Unknown Environment"
-          fi
-
-      - name: Deploy Application
-        run: yarn deploy -p
       - name: Debug Environment Variables
         run: env
